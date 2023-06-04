@@ -1,32 +1,32 @@
-import 'package:_food_delivery_ui_practice/data/data.dart';
-import 'package:_food_delivery_ui_practice/models/order.dart';
+import 'package:_food_delivery_ui_practice/datos/datos.dart';
+import 'package:_food_delivery_ui_practice/modelos/pedido.dart';
 import 'package:flutter/material.dart';
 
-class CartScreen extends StatefulWidget {
-  const CartScreen({Key? key}) : super(key: key);
+class PantallaCarrito extends StatefulWidget {
+  const PantallaCarrito({Key? key}) : super(key: key);
 
   @override
-  State<CartScreen> createState() => _CartScreenState();
+  State<PantallaCarrito> createState() => _PantallaCarrito();
 }
 
-class _CartScreenState extends State<CartScreen> {
+class _PantallaCarrito extends State<PantallaCarrito> {
   @override
   Widget build(BuildContext context) {
-    double totalPrice = 0.0;
-    currentUser.cart.forEach((Order order) {
-      totalPrice += order.food.price * order.quantity;
+    double precioTotal = 0.0;
+    usuarioActual.carrito.forEach((Pedido order) {
+      precioTotal += order.comida.precio * order.cantidad;
     });
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
-        title: Text("Cart (${currentUser.cart.length})"),
+        title: Text("Carrito (${usuarioActual.carrito.length})"),
         centerTitle: true,
         backgroundColor: Colors.deepOrangeAccent,
       ),
       body: ListView.separated(
           itemBuilder: (BuildContext context, int index) {
-            if (index < currentUser.cart.length) {
-              Order order = currentUser.cart[index];
+            if (index < usuarioActual.carrito.length) {
+              Pedido order = usuarioActual.carrito[index];
               return _buildCart(order);
             }
             return Padding(
@@ -38,7 +38,7 @@ class _CartScreenState extends State<CartScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Estimate Total Time",
+                        "Tiempo Total Estimado",
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 18,
@@ -58,14 +58,14 @@ class _CartScreenState extends State<CartScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Total Cost",
+                        "Costo Total",
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 18,
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        "\$${totalPrice.toStringAsFixed(2)}",
+                        "\$${precioTotal.toStringAsFixed(2)}",
                         style: TextStyle(
                             color: Colors.green.shade700,
                             fontSize: 18,
@@ -80,7 +80,7 @@ class _CartScreenState extends State<CartScreen> {
           },
           separatorBuilder: (BuildContext context, int index) =>
               Divider(thickness: 1.0, color: Colors.grey),
-          itemCount: currentUser.cart.length + 1),
+          itemCount: usuarioActual.carrito.length + 1),
       bottomSheet: Container(
         height: 80,
         decoration: BoxDecoration(color: Colors.deepOrangeAccent, boxShadow: [
@@ -88,7 +88,7 @@ class _CartScreenState extends State<CartScreen> {
         ]),
         child: Center(
           child: Text(
-            "CHECKOUT",
+            "COMPRAR",
             style: TextStyle(
                 color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
           ),
@@ -97,7 +97,7 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  Widget _buildCart(Order order) {
+  Widget _buildCart(Pedido order) {
     return Container(
       height: 170,
       child: Row(
@@ -112,7 +112,7 @@ class _CartScreenState extends State<CartScreen> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       image: DecorationImage(
-                          image: AssetImage(order.food.imageUrl),
+                          image: AssetImage(order.comida.imagen),
                           fit: BoxFit.cover)),
                 ),
                 Expanded(
@@ -123,7 +123,7 @@ class _CartScreenState extends State<CartScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          order.food.name,
+                          order.comida.nombre,
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 18,
@@ -131,7 +131,7 @@ class _CartScreenState extends State<CartScreen> {
                         ),
                         SizedBox(height: 10),
                         Text(
-                          order.restaurant.name,
+                          order.sucursal.nombre,
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 16,
@@ -156,7 +156,7 @@ class _CartScreenState extends State<CartScreen> {
                               ),
                               SizedBox(width: 20),
                               Text(
-                                order.quantity.toString(),
+                                order.cantidad.toString(),
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 20,
@@ -183,7 +183,7 @@ class _CartScreenState extends State<CartScreen> {
           Container(
             margin: EdgeInsets.all(12),
             child: Text(
-              "\$${order.food.price * order.quantity}",
+              "\$${order.comida.precio * order.cantidad}",
               style: TextStyle(
                   color: Colors.black,
                   fontSize: 16,

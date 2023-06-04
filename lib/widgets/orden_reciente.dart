@@ -1,9 +1,9 @@
-import 'package:_food_delivery_ui_practice/data/data.dart';
-import 'package:_food_delivery_ui_practice/models/order.dart';
+import 'package:_food_delivery_ui_practice/datos/datos.dart';
+import 'package:_food_delivery_ui_practice/modelos/pedido.dart';
 import 'package:flutter/material.dart';
 
-class RecentOrders extends StatelessWidget {
-  const RecentOrders({Key? key}) : super(key: key);
+class OrdenReciente extends StatelessWidget {
+  const OrdenReciente({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class RecentOrders extends StatelessWidget {
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.0),
           child: Text(
-            "Recent Orders",
+            "Orden Reciente",
             style: TextStyle(
                 fontSize: 24, fontWeight: FontWeight.w600, letterSpacing: 1.2),
           ),
@@ -25,9 +25,9 @@ class RecentOrders extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 12),
               physics: const ScrollPhysics(),
               scrollDirection: Axis.horizontal,
-              itemCount: currentUser.orders.length,
+              itemCount: usuarioActual.pedido.length,
               itemBuilder: (BuildContext context, int index) {
-                Order order = currentUser.orders[index];
+                Pedido order = usuarioActual.pedido[index];
                 return _buildRecentOrder(context, order);
               }),
         )
@@ -35,7 +35,7 @@ class RecentOrders extends StatelessWidget {
     );
   }
 
-  Widget _buildRecentOrder(BuildContext context, Order order) {
+  Widget _buildRecentOrder(BuildContext context, Pedido order) {
     return Container(
       width: 320,
       margin: const EdgeInsets.all(10),
@@ -56,7 +56,7 @@ class RecentOrders extends StatelessWidget {
                     width: 100,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage(order.food.imageUrl),
+                            image: AssetImage(order.comida.imagen),
                             fit: BoxFit.cover)),
                   ),
                 ),
@@ -68,7 +68,7 @@ class RecentOrders extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          order.food.name,
+                          order.comida.nombre,
                           style: const TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                           overflow: TextOverflow.ellipsis,
@@ -77,7 +77,7 @@ class RecentOrders extends StatelessWidget {
                           height: 4,
                         ),
                         Text(
-                          order.restaurant.name,
+                          order.sucursal.nombre,
                           style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w600),
                           overflow: TextOverflow.ellipsis,
@@ -85,7 +85,7 @@ class RecentOrders extends StatelessWidget {
                         const SizedBox(
                           height: 4,
                         ),
-                        Text(order.date,
+                        Text(order.fecha,
                             style: const TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.w600))
                       ],

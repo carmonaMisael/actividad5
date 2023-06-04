@@ -1,18 +1,18 @@
-import 'package:_food_delivery_ui_practice/models/food.dart';
-import 'package:_food_delivery_ui_practice/models/restaurant.dart';
+import 'package:_food_delivery_ui_practice/modelos/helados.dart';
+import 'package:_food_delivery_ui_practice/modelos/sucursal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-class RestaurantScreen extends StatefulWidget {
-  final Restaurant restaurant;
+class PantallaSucursal extends StatefulWidget {
+  final Sucursal restaurant;
 
-  RestaurantScreen({required this.restaurant});
+  PantallaSucursal({required this.restaurant});
 
   @override
-  State<RestaurantScreen> createState() => _RestaurantScreenState();
+  State<PantallaSucursal> createState() => _PantallaSucursal();
 }
 
-class _RestaurantScreenState extends State<RestaurantScreen> {
+class _PantallaSucursal extends State<PantallaSucursal> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,11 +21,11 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
         Stack(
           children: [
             Hero(
-              tag: widget.restaurant.imageUrl,
+              tag: widget.restaurant.imagen,
               child: Image(
                 height: 220,
                 width: MediaQuery.of(context).size.width,
-                image: AssetImage(widget.restaurant.imageUrl),
+                image: AssetImage(widget.restaurant.imagen),
                 fit: BoxFit.cover,
               ),
             ),
@@ -60,11 +60,11 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    widget.restaurant.name,
+                    widget.restaurant.nombre,
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                   ),
                   Text(
-                    "0.2 miles away",
+                    "0.2 km de distancia",
                     style: TextStyle(fontSize: 16),
                   )
                 ],
@@ -85,7 +85,7 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                   }),
               SizedBox(height: 10),
               Text(
-                widget.restaurant.address,
+                widget.restaurant.direccion,
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),
             ],
@@ -105,7 +105,7 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                       borderRadius: BorderRadius.circular(12)),
                   onPressed: () {},
                   child: Text(
-                    "Reviews",
+                    "Reseñas",
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   )),
               MaterialButton(
@@ -117,7 +117,7 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                       borderRadius: BorderRadius.circular(12)),
                   onPressed: () {},
                   child: Text(
-                    "Contact",
+                    "Contacto",
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ))
             ],
@@ -135,7 +135,7 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
           padding: EdgeInsets.all(10),
           crossAxisCount: 2,
           children: List.generate(widget.restaurant.menu.length, (index) {
-            Food food = widget.restaurant.menu[index];
+            Comida food = widget.restaurant.menu[index];
             return _buildMenuItems(food);
           }),
         ))
@@ -143,7 +143,7 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
     ));
   }
 
-  Widget _buildMenuItems(Food menuItems) {
+  Widget _buildMenuItems(Comida menuItems) {
     return Center(
       child: Stack(
         alignment: Alignment.center,
@@ -155,7 +155,7 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 image: DecorationImage(
-                    image: AssetImage(menuItems.imageUrl), fit: BoxFit.cover)),
+                    image: AssetImage(menuItems.imagen), fit: BoxFit.cover)),
           ),
           Container(
             margin: EdgeInsets.all(10),
@@ -178,14 +178,14 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                menuItems.name,
+                menuItems.nombre,
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 22,
                     fontWeight: FontWeight.w600),
               ),
               Text(
-                "\$${menuItems.price}",
+                "\$${menuItems.precio}",
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,
